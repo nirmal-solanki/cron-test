@@ -6,8 +6,7 @@ var express = require("express"),
     router = express.Router();
 var server  = require('http').createServer(app);
 var io      = require('socket.io').listen(server);
-var cron = require('node-cron');
-
+var CronJob = require('cron').CronJob;
 //CORS middleware
 var allowCrossDomain = function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -30,12 +29,14 @@ app.set('port', (process.env.PORT || 3000));
 server.listen(app.get('port')); // not 'app.listen'!);
 console.log("Listening to PORT 3000");
 
-cron.schedule('* 32-50 22 * * *', function(){
-    var msg = ' Running a task every minute'+(Math.random());
-    io.emit('message',  msg);
+var job = new CronJob({
+    cronTime: '* * * * * *',
+    onTick: function() {
+        var msg = ' Running a task every minute'+(Math.random());
+        io.emit('message',  msg);
+    },
+    start: false,
+    timeZone: 'Asia/Kolkata'
 });
+job.start();
 
-cron.schedule('* * * * * *', function(){
-    var msg = 'Current Server Time:'+(new Date());
-    io.emit('time',  msg);
-});
