@@ -30,7 +30,7 @@ server.listen(app.get('port')); // not 'app.listen'!);
 console.log("Listening to PORT 3000");
 
 var job = new CronJob({
-    cronTime: '*  10-20 23 * * *',
+    cronTime: '*  50-60 23 * * *',
     onTick: function() {
         var msg = ' Running a task every minute'+(Math.random());
         io.emit('message',  msg);
