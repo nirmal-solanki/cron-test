@@ -4,6 +4,9 @@ var express = require("express"),
     expressValidator = require('express-validator'),
     bodyParser = require("body-parser"),
     router = express.Router();
+var server  = require('http').createServer(app);
+var io      = require('socket.io').listen(server);
+var cron = require('node-cron');
 
 //CORS middleware
 var allowCrossDomain = function(req, res, next) {
@@ -20,6 +23,16 @@ app.use(allowCrossDomain);
 require('./routers/user')(app);
 require('./config');
 
+
+
+
 app.set('port', (process.env.PORT || 3000));
-app.listen(app.get('port'));
+server.listen(app.get('port')); // not 'app.listen'!);
 console.log("Listening to PORT 3000");
+
+cron.schedule('* * * * * *', function(){
+    console.log('running a task every minute');
+    var msg = 'Running a task every minute :'+(Math.random());
+    io.emit('message',  msg);
+    console.log (msg);
+});

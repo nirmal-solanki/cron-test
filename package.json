@@ -18,7 +18,9 @@
     "jwt-simple": "^0.5.0",
     "moment": "^2.14.1",
     "mongoose": "^4.5.8",
+    "node-cron": "^1.1.2",
     "npm": "^3.10.6",
-    "properties-reader": "0.0.15"
+    "properties-reader": "0.0.15",
+    "socket.io": "^1.5.1"
   }
 }
