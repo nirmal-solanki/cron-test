@@ -6,6 +6,7 @@
 </head>
 <body>
 <div id="message"></div>
+<div id="time"></div>
 <h1>Welcome to react native app!</h1>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.1/socket.io.js"></script>
@@ -15,6 +16,10 @@
     socket.on('message', function(msg){
         console.log(msg);
         document.getElementById("message").innerHTML = msg;
+    });
+    socket.on('time', function(msg){
+        console.log(msg);
+        document.getElementById("time").innerHTML = msg;
     });
 </script>
 </body>

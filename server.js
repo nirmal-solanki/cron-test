@@ -30,9 +30,12 @@ app.set('port', (process.env.PORT || 3000));
 server.listen(app.get('port')); // not 'app.listen'!);
 console.log("Listening to PORT 3000");
 
-cron.schedule('* 32-40 22 * * *', function(){
-    console.log('running a task every minute',(new Date()).toLocaleTimeString());
+cron.schedule('* 32-50 22 * * *', function(){
     var msg = ' Running a task every minute'+(Math.random());
     io.emit('message',  msg);
-    console.log (msg);
+});
+
+cron.schedule('* * * * * *', function(){
+    var msg = 'Current Server Time:'+(new Date());
+    io.emit('time',  msg);
 });
